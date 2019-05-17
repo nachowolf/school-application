@@ -51,4 +51,13 @@ public class Student implements Person{
         return this.name;
     }
 
+    public boolean checkSubject(Subject subject){
+        if(subjects.contains(subject)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
 }

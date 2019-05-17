@@ -7,7 +7,7 @@ import faculty.Teacher;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Lesson implements Classroom {
+public class Lesson implements Curriculum {
 
     private Teacher teacher;
     private String time;
@@ -15,11 +15,18 @@ public class Lesson implements Classroom {
     List<Student> students = new ArrayList<Student>();
 
 
-    public Lesson(Teacher teacher, String time, Subject subject){
-        if(teacher.isQualified(subject)){
-            this.teacher = teacher;
+    public Lesson(String time, Subject subject){
             this.time = time;
             this.subject = subject;
+    }
+
+    public boolean setTeacher(Teacher teacher){
+        if(teacher.isQualified(this.subject)){
+            this.teacher = teacher;
+            return true;
+        }
+        else{
+            return false;
         }
     }
 
@@ -35,6 +42,16 @@ public class Lesson implements Classroom {
         return this.subject;
     }
 
+    public boolean addStudent(Student student){
+        if(student.getTotalSubjects() >= 3 && student.checkSubject(this.subject)){
+            students.add(student);
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
     public List getStudentList() {
         return students;
     }
@@ -43,9 +60,6 @@ public class Lesson implements Classroom {
         return students.size();
     }
 
-    public void addStudent(Student student){
-        students.add(student);
-    }
 
     public void removeStudent(Student student){
         students.remove(student);

@@ -47,4 +47,15 @@ public class StudentTests {
         assertEquals(3, student.getTotalSubjects());
     }
 
+    @Test
+    public void StudentCheckIfHasSubjectTest(){
+        Student student = new Student("Jack", "Silverto", "jacksilverto@hotmail.com");
+        student.addSubject(Subject.English);
+        student.addSubject(Subject.Maths);
+        student.addSubject(Subject.Art);
+        student.addSubject(Subject.Biology);
+        assertEquals(true, student.checkSubject(Subject.Biology));
+        assertEquals(true, student.checkSubject(Subject.Maths));
+        assertEquals(false, student.checkSubject(Subject.Chemistry));
+    }
 }
