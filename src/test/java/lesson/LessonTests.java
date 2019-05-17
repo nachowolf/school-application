@@ -49,6 +49,7 @@ public class LessonTests {
         dave.addSubject(Subject.Art);
         dave.addSubject(Subject.Business);
 
-        mathLesson.addStudent()
+        mathLesson.addStudent(sarah);
+        mathLesson.addStudent(dave);
     }
 }
