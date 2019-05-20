@@ -43,8 +43,9 @@ public class Lesson implements Curriculum {
     }
 
     public boolean addStudent(Student student){
-        if(student.getTotalSubjects() >= 3 && student.checkSubject(this.subject)){
+        if(student.getTotalSubjects() >= 3 && student.checkSubject(this.subject) && student.checkLesson(time)){
             students.add(student);
+            student.addLesson(time, subject);
             return true;
         }
         else {
@@ -60,8 +61,8 @@ public class Lesson implements Curriculum {
         return students.size();
     }
 
-
     public void removeStudent(Student student){
         students.remove(student);
+        student.removeLesson(time);
     }
 }
