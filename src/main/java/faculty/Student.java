@@ -11,6 +11,7 @@ public class Student implements Person{
     private String email;
     private List<Subject> subjects = new ArrayList<Subject>();
     private Map<String, Subject> timetable = new TreeMap<String, Subject>();
+    private Wallet wallet = new Wallet();
 
     public Student(String name, String surname, String email){
         this.name = name;
@@ -70,15 +71,8 @@ public class Student implements Person{
 
 //    adds a lesson subject and time to student
     public void addLesson(String time, Subject subject){
-        for(Map.Entry<String, Subject> lesson : timetable.entrySet()){
-            String lessonTime = lesson.getKey();
-            Subject lessonSubject = lesson.getValue();
-            if(lessonSubject != subject && lessonTime != time){
-                timetable.put(time, subject);
-            }
-            else if(lessonTime != time){
-                timetable.put(time, subject);
-            }
+        if(!timetable.containsKey(time)){
+            timetable.put(time, subject);
         }
     }
 
@@ -86,7 +80,7 @@ public class Student implements Person{
     public boolean checkLesson(String time){
         for(Map.Entry<String, Subject> lesson : timetable.entrySet()){
             String lessonTime = lesson.getKey();
-            if(lessonTime != time){
+            if(lessonTime.equals(time)){
                 return true;
             }
             }

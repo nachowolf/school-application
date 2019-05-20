@@ -13,21 +13,16 @@ public class Lesson implements Curriculum {
     private String time;
     private Subject subject;
     List<Student> students = new ArrayList<Student>();
+    private boolean status = false;
 
 
-    public Lesson(String time, Subject subject){
+    public Lesson(Teacher teacher,Subject subject, String time){
+        if(teacher.isQualified(subject)){
+            this.teacher = teacher;
             this.time = time;
             this.subject = subject;
-    }
+        }
 
-    public boolean setTeacher(Teacher teacher){
-        if(teacher.isQualified(this.subject)){
-            this.teacher = teacher;
-            return true;
-        }
-        else{
-            return false;
-        }
     }
 
     public Teacher getTeacher() {
@@ -43,9 +38,15 @@ public class Lesson implements Curriculum {
     }
 
     public boolean addStudent(Student student){
-        if(student.getTotalSubjects() >= 3 && student.checkSubject(this.subject) && student.checkLesson(time)){
+        if(student.getTotalSubjects() >= 3 && student.checkSubject(this.subject) && !student.checkLesson(this.time) && !students.contains(student)){
             students.add(student);
-            student.addLesson(time, subject);
+            student.addLesson(this.time, this.subject);
+            if(students.size() >= 5){
+                this.status = true;
+            }
+            else{
+                this.status = false;
+            }
             return true;
         }
         else {
@@ -57,12 +58,27 @@ public class Lesson implements Curriculum {
         return students;
     }
 
-    public int totalstudents(){
+    public int totalStudents(){
         return students.size();
     }
 
     public void removeStudent(Student student){
         students.remove(student);
         student.removeLesson(time);
+        if(students.size() >= 5){
+            this.status = true;
+        }
+        else{
+            this.status = false;
+        }
+    }
+
+    public String lessonStatus(){
+        if(status){
+            return "continued";
+        }
+        else{
+            return "cancelled";
+        }
     }
 }
