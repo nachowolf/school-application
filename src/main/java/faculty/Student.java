@@ -1,38 +1,71 @@
 package faculty;
 
 
-import java.text.Collator;
 import java.util.*;
 
-public class Student implements Person{
+public class Student extends Wallet implements Person {
+
+    private List<Subject> subjects = new ArrayList<Subject>();
+    private Map<String, Subject> timetable = new TreeMap<String, Subject>();
+    private Map<Subject, NoteSource> notes = new HashMap();
 
     private String name;
     private String surname;
     private String email;
-    private List<Subject> subjects = new ArrayList<Subject>();
-    private Map<String, Subject> timetable = new TreeMap<String, Subject>();
-    private Wallet wallet = new Wallet();
 
-    public Student(String name, String surname, String email){
+
+//############# Constructor #############
+
+    public Student(String name, String surname, String email) {
         this.name = name;
         this.surname = surname;
         this.email = email;
     }
 
-//    Return the students name
+//#####################################
+
+
+//########## Identity Methods ##########
+
+    @Override
     public String getName() {
         return this.name;
     }
 
-//    return the students surname
+    @Override
     public String getSurname() {
         return this.surname;
     }
 
-//    returns the students email address
+    @Override
     public String getEmail() {
         return this.email;
     }
+
+//####################################
+
+
+//########## Token Methods ##########
+
+    //    GET TOKEN BALANCE FROM WALLET
+    public int getTokenBalance() {
+        return getBalance();
+    }
+
+    //    WITHDRAW TOKENS FROM WALLET
+    public void withdrawTokens(int amt) {
+        withdraw(amt);
+    }
+
+    //    DEPOSIT TOKENS INTO WALLET
+    public void depositTokens(int amt) {
+        deposit(amt);
+    }
+
+//#################################
+
+
+//########## Subject Methods ##########
 
 //    adds registers a student for a subject
     public void addSubject(Subject subject){
@@ -54,11 +87,6 @@ public class Student implements Person{
         subjects.remove(subject);
     }
 
-//    prints students name when sysout object
-    public String toString(){
-        return this.name;
-    }
-
 //    returns a boolean if a student has that subject
     public boolean checkSubject(Subject subject){
         if(subjects.contains(subject)){
@@ -68,6 +96,10 @@ public class Student implements Person{
             return false;
         }
     }
+    //###################################
+
+
+    //########## Lesson Methods ##########
 
 //    adds a lesson subject and time to student
     public void addLesson(String time, Subject subject){
@@ -93,4 +125,47 @@ public class Student implements Person{
 
     }
 
+//####################################
+
+//    ########## Note Methods ##########
+
+//     ADD NOTES
+    public void receiveNotes(Subject subject, NoteSource source){
+        notes.put(subject, source);
+    }
+
+//    RETURNS HOW MUCH NOTES THE STUDENT HAS
+    public int totalNotes(){
+        return notes.size();
+    }
+
+//    RETURNS HOW MUCH NOTES THERE ARE FOR A SPECIFIC SUBJECT
+    public int totalNotesOfSubject(Subject subject){
+        int counter = 0;
+        for(Subject subjectKey: notes.keySet()){
+            if(subject.equals(subjectKey)){
+                counter++;
+            }
+        }
+        return counter;
+    }
+
+//    RETURNS HOW MANY NOTES HAVE BEEN BOUGHT OR RECEIVED DURING LESSON
+    public int totalNotesOfSource(NoteSource source){
+        int counter = 0;
+        for(NoteSource sourceValue: notes.values()){
+            if(source.equals(sourceValue)){
+                counter++;
+            }
+        }
+        return counter;
+
+    }
+
+//    REMOVES NOTES FROM STUDENT
+    public void removeNotes(Subject subject, NoteSource source){
+        notes.remove(subject, source);
+    }
+
+//    ###################################
 }

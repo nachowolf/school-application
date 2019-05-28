@@ -1,16 +1,13 @@
 package lesson;
 
-import faculty.Person;
 import faculty.Student;
 import faculty.Subject;
 import faculty.Teacher;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
 
 
 public class LessonTests {

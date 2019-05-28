@@ -1,21 +1,34 @@
 package faculty;
 
-import faculty.Subject;
 
-import java.util.Map;
-import java.util.TreeMap;
+public abstract class Wallet {
 
-public class Wallet {
+private int tokensBalance = 0;
 
-    private int token = 0;
-    private Map<Subject, NoteSource> notes = new TreeMap<Subject, NoteSource>();
-
-    public void earnToken(Subject subject){
-        notes.put(subject, NoteSource.Attended);
-        this.token += 3;
-    }
-
-    public void buyNotes(Subject subject){
+    public boolean withdraw(int token){
+        if(token > 0 && this.tokensBalance >= token){
+            this.tokensBalance -= token;
+            return true;
+        }
+        else{
+            return false;
+        }
 
     }
+
+    public boolean deposit(int token){
+        if(token > 0){
+            this.tokensBalance += token;
+            return true;
+        }
+        else{
+            return false;
+        }
+
+    }
+
+    public int getBalance(){
+        return this.tokensBalance;
+    }
+
 }

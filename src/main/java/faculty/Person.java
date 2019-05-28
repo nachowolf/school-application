@@ -1,10 +1,10 @@
 package faculty;
 
-public interface Human {
+public interface Person {
 
 
 //    Get name, surname and email
-    String Name();
-    String Surname();
-    String Email();
+    String getName();
+    String getSurname();
+    String getEmail();
 }
