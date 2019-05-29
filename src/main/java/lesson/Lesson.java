@@ -59,7 +59,7 @@ public class Lesson implements Curriculum {
             students.add(student);
             student.addLesson(this.time, this.subject);
             student.deposit(3);
-            student.receiveNotes(this.subject, NoteSource.Attended);
+            student.addNote(this.subject, NoteSource.Attended);
             if(students.size() >= 5){
                 this.status = Started;
                 teacher.depositTokens(5);
@@ -89,7 +89,7 @@ public class Lesson implements Curriculum {
         students.remove(student);
         student.removeLesson(time);
         student.withdraw(3);
-        student.removeNotes(this.subject, NoteSource.Attended);
+        student.removeNote(this.subject, NoteSource.Attended);
         if(students.size() <= 5) {
             this.status = Cancelled;
             teacher.withdrawTokens(5);

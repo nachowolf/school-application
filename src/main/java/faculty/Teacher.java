@@ -2,10 +2,14 @@ package faculty;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class Teacher extends Wallet implements Person {
 
     List<Subject> qualified = new ArrayList<Subject>();
+    private Map<String, Subject> timetable = new TreeMap<String, Subject>();
+
     private String name;
     private String surname;
     private String email;
@@ -82,4 +86,32 @@ public class Teacher extends Wallet implements Person {
     }
 
 // ###########################################
+
+    //########## Lesson Methods ##########
+
+    //    adds a lesson subject and time to student
+    public void addLesson(String time, Subject subject){
+        if(!timetable.containsKey(time)){
+            timetable.put(time, subject);
+        }
+    }
+
+    //    checks whether a student is available to attend a lesson
+    public boolean checkLesson(String time){
+        for(Map.Entry<String, Subject> lesson : timetable.entrySet()){
+            String lessonTime = lesson.getKey();
+            if(lessonTime.equals(time)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //     removes a lesson from student timetable
+    public void removeLesson(String time){
+        timetable.remove(time);
+
+    }
+
+    //####################################
 }

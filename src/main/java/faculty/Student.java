@@ -125,12 +125,28 @@ public class Student extends Wallet implements Person {
 
     }
 
+    //     removes a lesson from student timetable
+    public void removeLesson(Subject subject){
+        timetable.remove(subject);
+
+    }
+
+//    RETURNS ALL LESSONS STUDENT HAS
+    public Map allLessons(){
+        return timetable;
+    }
+
+//    RETURNS TOTAL NUMBER OF LESSONS
+    public int totalLessons(){
+        return timetable.size();
+    }
+
 //####################################
 
 //    ########## Note Methods ##########
 
 //     ADD NOTES
-    public void receiveNotes(Subject subject, NoteSource source){
+public void addNote(Subject subject, NoteSource source) {
         notes.put(subject, source);
     }
 
@@ -139,8 +155,8 @@ public class Student extends Wallet implements Person {
         return notes.size();
     }
 
-//    RETURNS HOW MUCH NOTES THERE ARE FOR A SPECIFIC SUBJECT
-    public int totalNotesOfSubject(Subject subject){
+    //    RETURNS HOW MUCH NOTES THERE ARE FOR A SPECIFIC SUBJECT
+    public int totalNotes(Subject subject) {
         int counter = 0;
         for(Subject subjectKey: notes.keySet()){
             if(subject.equals(subjectKey)){
@@ -151,7 +167,7 @@ public class Student extends Wallet implements Person {
     }
 
 //    RETURNS HOW MANY NOTES HAVE BEEN BOUGHT OR RECEIVED DURING LESSON
-    public int totalNotesOfSource(NoteSource source){
+public int totalNotes(NoteSource source) {
         int counter = 0;
         for(NoteSource sourceValue: notes.values()){
             if(source.equals(sourceValue)){
@@ -162,8 +178,37 @@ public class Student extends Wallet implements Person {
 
     }
 
-//    REMOVES NOTES FROM STUDENT
-    public void removeNotes(Subject subject, NoteSource source){
+    //    RETURNS HOW MANY NOTES THERE ARE FOR A SUBJECT AND IT'S SOURCE
+    public int totalNotes(Subject subject, NoteSource source) {
+        int counter = 0;
+
+        Iterator note = notes.entrySet().iterator();
+        while (note.hasNext()) {
+            Map.Entry pairInfo = (Map.Entry) note.next();
+            if (pairInfo.getKey().equals(subject) && pairInfo.getValue().equals(source)) {
+                counter++;
+            }
+        }
+        return counter;
+    }
+
+    //    RETURNS HOW MANY NOTES THERE ARE FOR A SUBJECT AND IT'S SOURCE
+    public int totalNotes(NoteSource source, Subject subject) {
+        int counter = 0;
+
+        Iterator note = notes.entrySet().iterator();
+        while (note.hasNext()) {
+            Map.Entry pairInfo = (Map.Entry) note.next();
+            if (pairInfo.getKey().equals(subject) && pairInfo.getValue().equals(source)) {
+                counter++;
+            }
+        }
+        return counter;
+    }
+
+
+    //    REMOVES NOTES FROM STUDENT
+public void removeNote(Subject subject, NoteSource source) {
         notes.remove(subject, source);
     }
 
