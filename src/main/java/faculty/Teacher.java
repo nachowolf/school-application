@@ -1,14 +1,16 @@
 package faculty;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 public class Teacher extends Wallet implements Person {
 
     List<Subject> qualified = new ArrayList<Subject>();
-    private Map<String, Subject> timetable = new TreeMap<String, Subject>();
+    private SortedMap<String, Subject> timetable = new TreeMap<String, Subject>(new Comparator<String>() {
+        @Override
+        public int compare(String s1, String s2) {
+            return s2.compareTo(s1);
+        }
+    });;
 
     private String name;
     private String surname;
@@ -89,14 +91,14 @@ public class Teacher extends Wallet implements Person {
 
     //########## Lesson Methods ##########
 
-    //    adds a lesson subject and time to student
+    //    adds a lesson subject and time to teacher
     public void addLesson(String time, Subject subject){
         if(!timetable.containsKey(time)){
             timetable.put(time, subject);
         }
     }
 
-    //    checks whether a student is available to attend a lesson
+    //    checks whether a teacher is available to teach a lesson
     public boolean checkLesson(String time){
         for(Map.Entry<String, Subject> lesson : timetable.entrySet()){
             String lessonTime = lesson.getKey();
@@ -107,10 +109,19 @@ public class Teacher extends Wallet implements Person {
         return false;
     }
 
-    //     removes a lesson from student timetable
+    //     removes a lesson from teacher timetable
     public void removeLesson(String time){
         timetable.remove(time);
 
+    }
+
+//    RETURNS ALL LESSONS THE TEACHER HAS TO TEACH
+    public List allLessons(){
+        List<String> periods = new ArrayList<>();
+        for( Map.Entry period : timetable.entrySet()){
+            periods.add(period.getKey() + " : " +period.getValue().toString());
+        }
+        return periods;
     }
 
     //####################################

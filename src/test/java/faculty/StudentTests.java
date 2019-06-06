@@ -137,6 +137,8 @@ public class StudentTests {
 
     //   ############################################
 
+
+
 //    ##########| STUDENT WALLET TESTS | ##########
 
     @Test
@@ -158,6 +160,9 @@ public class StudentTests {
         assertEquals(1, spyStudent.getTokenBalance());
 
     }
+    //    #############################################
+
+
 
     //    ##########| STUDENT NOTES TEST |##########
     @Test
