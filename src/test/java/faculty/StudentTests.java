@@ -147,16 +147,16 @@ public class StudentTests {
         Student student = new Student("Jack", "Silverto", "jacksilverto@hotmail.com");
         Student spyStudent = Mockito.spy(student);
 
-        spyStudent.deposit(3);
-        Mockito.verify(spyStudent).deposit(3);
+        spyStudent.depositTokens(3);
+        Mockito.verify(spyStudent).depositTokens(3);
         assertEquals(3, spyStudent.getTokenBalance());
 
-        spyStudent.deposit(5);
-        Mockito.verify(spyStudent).deposit(5);
+        spyStudent.depositTokens(5);
+        Mockito.verify(spyStudent).depositTokens(5);
         assertEquals(8, spyStudent.getTokenBalance());
 
-        spyStudent.withdraw(7);
-        Mockito.verify(spyStudent).withdraw(7);
+        spyStudent.withdrawTokens(7);
+        Mockito.verify(spyStudent).withdrawTokens(7);
         assertEquals(1, spyStudent.getTokenBalance());
 
     }

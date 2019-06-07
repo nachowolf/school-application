@@ -3,15 +3,16 @@ package faculty;
 
 import java.util.*;
 
-public class Student extends Wallet implements Person {
+public class Student implements Person {
 
     private List<Subject> subjects = new ArrayList<Subject>();
-    private Map<String, Subject> timetable = new TreeMap<String, Subject>();
     private Map<Subject, NoteSource> notes = new HashMap();
 
     private String name;
     private String surname;
     private String email;
+    private Wallet wallet = new Wallet();
+    private Timetable timetable = new Timetable();
 
 
 //############# Constructor #############
@@ -49,17 +50,17 @@ public class Student extends Wallet implements Person {
 
     //    GET TOKEN BALANCE FROM WALLET
     public int getTokenBalance() {
-        return getBalance();
+        return wallet.getBalance();
     }
 
     //    WITHDRAW TOKENS FROM WALLET
     public void withdrawTokens(int amt) {
-        withdraw(amt);
+        wallet.withdraw(amt);
     }
 
     //    DEPOSIT TOKENS INTO WALLET
     public void depositTokens(int amt) {
-        deposit(amt);
+        wallet.deposit(amt);
     }
 
 //#################################
@@ -103,42 +104,29 @@ public class Student extends Wallet implements Person {
 
 //    adds a lesson subject and time to student
     public void addLesson(String time, Subject subject){
-        if(!timetable.containsKey(time)){
-            timetable.put(time, subject);
-        }
+timetable.addLesson(time,subject);
     }
 
 //    checks whether a student is available to attend a lesson
     public boolean checkLesson(String time){
-        for(Map.Entry<String, Subject> lesson : timetable.entrySet()){
-            String lessonTime = lesson.getKey();
-            if(lessonTime.equals(time)){
-                return true;
-            }
-            }
-        return false;
+        return timetable.checkLesson(time);
         }
 
 //     removes a lesson from student timetable
     public void removeLesson(String time){
-        timetable.remove(time);
+        timetable.removeLesson(time);
 
     }
 
-    //     removes a lesson from student timetable
-    public void removeLesson(Subject subject){
-        timetable.remove(subject);
-
-    }
 
 //    RETURNS ALL LESSONS STUDENT HAS
-    public Map allLessons(){
-        return timetable;
+    public List allLessons(){
+        return timetable.allLessons();
     }
 
 //    RETURNS TOTAL NUMBER OF LESSONS
     public int totalLessons(){
-        return timetable.size();
+        return timetable.totalLessons();
     }
 
 //####################################

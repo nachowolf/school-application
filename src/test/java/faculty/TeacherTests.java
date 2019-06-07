@@ -29,10 +29,10 @@ public class TeacherTests {
             String surname = hold[1];
             String email = name.toLowerCase() + surname.toLowerCase() + "@gmail.com";
 
-            Teacher student2 = new Teacher(name, surname,email);
-            assertEquals(name ,student2.getName());
-            assertEquals(surname ,student2.getSurname());
-            assertEquals(email ,student2.getEmail());
+            Teacher teacher2 = new Teacher(name, surname,email);
+            assertEquals(name ,teacher2.getName());
+            assertEquals(surname ,teacher2.getSurname());
+            assertEquals(email ,teacher2.getEmail());
 
     }
 
@@ -104,10 +104,32 @@ public class TeacherTests {
         teacher.addLesson("10:30", Subject.Maths);
         teacher.addLesson("11:30", Subject.Maths);
         teacher.addLesson("09:30", Subject.Maths);
-        assertEquals(true, teacher.checkLesson("09:30"));
         assertEquals(Arrays.asList("09:30 : Maths", "10:30 : Maths", "11:30 : Maths"), teacher.allLessons());
     }
 
+    @Test
+    @Order(9)
+    public void AllTeacherLessonsAndRemoveLessonTest(){
+        Teacher teacher = new Teacher("Sarah", "Jackson", "sarahjackson@gmail.com");
+        teacher.qualifySubject(Subject.Maths);
+        teacher.addLesson("10:30", Subject.Maths);
+        teacher.addLesson("11:30", Subject.Maths);
+        teacher.addLesson("09:30", Subject.Maths);
+        assertEquals(Arrays.asList("09:30 : Maths", "10:30 : Maths", "11:30 : Maths"), teacher.allLessons());
+        teacher.removeLesson("10:30");
+        assertEquals(Arrays.asList("09:30 : Maths", "11:30 : Maths"), teacher.allLessons());
+    }
+
+    @Test
+    @Order(10)
+    public void TeacherLessonDoesntChangeIfAnotherLessonHasSameTime(){
+        Teacher teacher = new Teacher("Sarah", "Jackson", "sarahjackson@gmail.com");
+        teacher.qualifySubject(Subject.Maths);
+        teacher.qualifySubject(Subject.English);
+        teacher.addLesson("10:30", Subject.Maths);
+        teacher.addLesson("10:30", Subject.English);
+        assertEquals(Subject.Maths, teacher.getLesson("10:30"));
+    }
 
     //    ############################################
 }

@@ -1,7 +1,7 @@
 package faculty;
 
 
-public abstract class Wallet {
+public class Wallet {
 
 private int tokensBalance = 0;
 

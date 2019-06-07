@@ -1,26 +1,47 @@
 package lesson;
 
+import com.github.javafaker.Faker;
 import faculty.Student;
 import faculty.Subject;
 import faculty.Teacher;
+import org.junit.Rule;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class LessonTests {
+
+
+    @Rule
+    Teacher mockTeacher;
+    public void CreatePerson(){
+        Faker person = new Faker();
+        String[] hold = person.funnyName().name().split(" ");
+        String name = hold[0];
+        String surname = hold[1];
+        String email = name.toLowerCase() + surname.toLowerCase() + "@gmail.com";
+
+        mockTeacher = new Teacher(name, surname, email);
+    }
+
 
 
     @Test
     public void CreateLessonTest() {
-        Teacher teacher = new Teacher("John", "Clark", "johnclark@gmail.com");
+        Teacher teacher = mockTeacher;
         teacher.qualifySubject(Subject.Maths);
         Lesson mathLesson = new Lesson(teacher, Subject.Maths, "10:00");
         assertEquals("10:00",mathLesson.getTime());
         assertEquals(Subject.Maths,mathLesson.getSubject());
     }
+
+
 
     @Test
     public void AddStudentTest(){

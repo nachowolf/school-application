@@ -58,7 +58,7 @@ public class Lesson implements Curriculum {
         if(student.getTotalSubjects() >= 3 && student.checkSubject(this.subject) && !student.checkLesson(this.time) && !students.contains(student)){
             students.add(student);
             student.addLesson(this.time, this.subject);
-            student.deposit(3);
+            student.depositTokens(3);
             student.addNote(this.subject, NoteSource.Attended);
             if(students.size() >= 5){
                 this.status = Started;
@@ -88,7 +88,7 @@ public class Lesson implements Curriculum {
     public void removeStudent(Student student){
         students.remove(student);
         student.removeLesson(time);
-        student.withdraw(3);
+        student.withdrawTokens(3);
         student.removeNote(this.subject, NoteSource.Attended);
         if(students.size() <= 5) {
             this.status = Cancelled;
