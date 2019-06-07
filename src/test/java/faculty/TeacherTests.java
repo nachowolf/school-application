@@ -103,9 +103,9 @@ public class TeacherTests {
         teacher.qualifySubject(Subject.Maths);
         teacher.addLesson("10:30", Subject.Maths);
         teacher.addLesson("11:30", Subject.Maths);
-        teacher.addLesson("9:30", Subject.Maths);
-        assertEquals(true, teacher.checkLesson("9:30"));
-        assertEquals(Arrays.asList("9:30 : Maths", "10:30 : Maths", "11:30 : Maths"), teacher.allLessons());
+        teacher.addLesson("09:30", Subject.Maths);
+        assertEquals(true, teacher.checkLesson("09:30"));
+        assertEquals(Arrays.asList("09:30 : Maths", "10:30 : Maths", "11:30 : Maths"), teacher.allLessons());
     }
 
 
