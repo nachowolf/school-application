@@ -194,6 +194,10 @@ public int totalNotes(NoteSource source) {
         return counter;
     }
 
+    public boolean hasNotes(Subject subject) {
+        return notes.containsKey(subject);
+    }
+
 
     //    REMOVES NOTES FROM STUDENT
 public void removeNote(Subject subject, NoteSource source) {
@@ -201,4 +205,27 @@ public void removeNote(Subject subject, NoteSource source) {
     }
 
 //    ###################################
+
+    //    ##########| EXCHANGE NOTES METHODS |##########
+//    Buy notes from another student
+    public void buyNotes(Student vendor, Subject subject) {
+
+        int chargeAmt;
+
+        if (subjects.contains(subject)) {
+            chargeAmt = 3;
+        } else {
+            chargeAmt = 5;
+        }
+
+        if (vendor.hasNotes(subject)) {
+
+            if (wallet.getBalance() >= chargeAmt) {
+                wallet.withdraw(chargeAmt);
+                notes.put(subject, NoteSource.Bought);
+                vendor.depositTokens(chargeAmt);
+            }
+        }
+    }
+//    ##############################################
 }

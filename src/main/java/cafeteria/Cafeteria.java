@@ -1,5 +1,8 @@
 package cafeteria;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import faculty.Person;
 import faculty.Student;
 
@@ -8,6 +11,9 @@ import java.util.*;
 public class Cafeteria {
 
     private Map<Person, List<Menu>> customerList = new HashMap<>();
+
+
+
 
     public void purchase(Person person, Menu item){
       if(!customerList.containsKey(person)){
@@ -18,17 +24,20 @@ public class Cafeteria {
     }
 
     public void soldToList() {
+
+
+
         List<String> result = new ArrayList();
     for (Map.Entry listItem : customerList.entrySet()){
 
     Person currentPerson = (Person) listItem.getKey();
     ArrayList currentList = (ArrayList) listItem.getValue();
-    String boughtItems = "";
+    String boughtItems = "Items : ";
 
     for (int i = 0; i< currentList.size();i++){
-        boughtItems += currentList.get(i) + "";
+        boughtItems += currentList.get(i) + " \n";
     }
-    result.add(currentPerson.getName() + " : " + boughtItems);
+    result.add("Name : " + currentPerson.getName() + " \n " + boughtItems);
     boughtItems = "";
 
 }

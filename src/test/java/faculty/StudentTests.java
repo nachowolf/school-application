@@ -16,6 +16,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class StudentTests {
 
+    public static Student createStudent(){
+        Faker person = new Faker();
+        String[] hold = person.funnyName().name().split(" ");
+        String name = hold[0];
+        String surname = hold[1];
+        String email = name.toLowerCase() + surname.toLowerCase() + "@gmail.com";
+        Student mockStudent = new Student(name, surname, email);
+        return mockStudent;
+    }
+
 
 //##########| CONSTRUCTOR TESTS |##########
 
@@ -259,12 +269,34 @@ public class StudentTests {
         assertEquals(3, spyStudent.totalNotes());
         assertEquals(1, spyStudent.totalNotes(Subject.English, NoteSource.Attended));
     }
+
+    @Test
+    @Order(11)
+    public void buyNotesIfRegisteredForSubjectTest(){
+        Student vendor = createStudent();
+        vendor.addNote(Subject.English, NoteSource.Attended);
+
+
+        Student student = createStudent();
+        Student spyStudent = Mockito.spy(student);
+
+        spyStudent.depositTokens(3);
+        Mockito.verify(spyStudent).depositTokens(3);
+
+        spyStudent.addSubject(Subject.English);
+        Mockito.verify(spyStudent).addSubject(Subject.English);
+
+        spyStudent.buyNotes(vendor, Subject.English);
+        Mockito.verify(spyStudent).buyNotes(vendor, Subject.English);
+    }
+
+
 //    ##########################################
 
 
     //    ##########| STUDENT TIMETABLE TESTS |##########
     @Test
-    @Order(11)
+    @Order(12)
     public void addLessonTest(){
     Student student = new Student("Jack", "Silverto", "jacksilverto@hotmail.com");
     Student spyStudent = Mockito.spy(student);
@@ -276,7 +308,7 @@ public class StudentTests {
 }
 
     @Test
-    @Order(12)
+    @Order(13)
     public void removeLessonTest(){
         Student student = new Student("Jack", "Silverto", "jacksilverto@hotmail.com");
         Student spyStudent = Mockito.spy(student);
