@@ -3,7 +3,7 @@ package faculty;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Teacher extends Wallet implements Person {
+public class Teacher implements Person {
 
     List<Subject> qualified = new ArrayList<Subject>();
 
@@ -12,6 +12,7 @@ public class Teacher extends Wallet implements Person {
     private String email;
     private Wallet wallet = new Wallet();
     private Timetable timetable = new Timetable();
+    private Role role = Role.Teacher;
 
 
 //############# Constructor #############
@@ -42,6 +43,11 @@ public class Teacher extends Wallet implements Person {
         return this.email;
     }
 
+    @Override
+    public Role getRole(){
+        return this.role;
+    }
+
 //####################################
 
     // ########## Teacher Subject Methods ##########
@@ -70,19 +76,21 @@ public class Teacher extends Wallet implements Person {
     //########## Token Methods ##########
 
     //    GET TOKEN BALANCE FROM WALLET
-    public int getTokenBalance() {
+    public double getTokenBalance() {
         return wallet.getBalance();
     }
 
     //    WITHDRAW TOKENS FROM WALLET
-    public void withdrawTokens(int amt) {
-        wallet.withdraw(amt);
+    public boolean withdrawTokens(double amt) {
+        return wallet.withdraw(amt);
     }
 
     //    DEPOSIT TOKENS INTO WALLET
-    public void depositTokens(int amt) {
-        wallet.deposit(amt);
+    public boolean depositTokens(double amt) {
+        return wallet.deposit(amt);
     }
+
+
 
 //#################################
 
@@ -114,8 +122,14 @@ public class Teacher extends Wallet implements Person {
     }
 
     //    RETURNS LESSON BASED ON TIME
+    @Override
     public Subject getLesson(String time) {
         return timetable.getLesson(time);
+    }
+
+    @Override
+    public int totalLessons() {
+        return timetable.totalLessons();
     }
 
     //####################################

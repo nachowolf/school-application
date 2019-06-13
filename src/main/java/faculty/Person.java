@@ -7,4 +7,11 @@ public interface Person {
     String getName();
     String getSurname();
     String getEmail();
+    Role getRole();
+    double getTokenBalance();
+    boolean withdrawTokens(double amt);
+    boolean depositTokens(double amt);
+    int totalLessons();
+    Subject getLesson(String time);
+
 }

@@ -11,6 +11,7 @@ public class Student implements Person {
     private String name;
     private String surname;
     private String email;
+    private Role role = Role.Student;
     private Wallet wallet = new Wallet();
     private Timetable timetable = new Timetable();
 
@@ -43,24 +44,29 @@ public class Student implements Person {
         return this.email;
     }
 
+    @Override
+    public Role getRole() {
+        return this.role;
+    }
+
 //####################################
 
 
 //########## Token Methods ##########
 
     //    GET TOKEN BALANCE FROM WALLET
-    public int getTokenBalance() {
+    public double getTokenBalance() {
         return wallet.getBalance();
     }
 
     //    WITHDRAW TOKENS FROM WALLET
-    public void withdrawTokens(int amt) {
-        wallet.withdraw(amt);
+    public boolean withdrawTokens(double amt) {
+        return wallet.withdraw(amt);
     }
 
     //    DEPOSIT TOKENS INTO WALLET
-    public void depositTokens(int amt) {
-        wallet.deposit(amt);
+    public boolean depositTokens(double amt) {
+        return wallet.deposit(amt);
     }
 
 //#################################
@@ -68,32 +74,31 @@ public class Student implements Person {
 
 //########## Subject Methods ##########
 
-//    adds registers a student for a subject
-    public void addSubject(Subject subject){
+    //    adds registers a student for a subject
+    public void addSubject(Subject subject) {
         subjects.add(subject);
     }
 
-//    returns the all subjects a student is registered for
-    public List getSubjects(){
+    //    returns the all subjects a student is registered for
+    public List getSubjects() {
         return subjects;
     }
 
-//    returns how many subjects a student has
-    public int getTotalSubjects(){
+    //    returns how many subjects a student has
+    public int getTotalSubjects() {
         return subjects.size();
     }
 
-//    removes a subject from a student
-    public void removeSubject(Subject subject){
+    //    removes a subject from a student
+    public void removeSubject(Subject subject) {
         subjects.remove(subject);
     }
 
-//    returns a boolean if a student has that subject
-    public boolean checkSubject(Subject subject){
-        if(subjects.contains(subject)){
+    //    returns a boolean if a student has that subject
+    public boolean checkSubject(Subject subject) {
+        if (subjects.contains(subject)) {
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }
@@ -102,63 +107,69 @@ public class Student implements Person {
 
     //########## Lesson Methods ##########
 
-//    adds a lesson subject and time to student
-    public void addLesson(String time, Subject subject){
-timetable.addLesson(time,subject);
+    //    adds a lesson subject and time to student
+    public void addLesson(String time, Subject subject) {
+        timetable.addLesson(time, subject);
     }
 
-//    checks whether a student is available to attend a lesson
-    public boolean checkLesson(String time){
+    //    checks whether a student is available to attend a lesson
+    public boolean checkLesson(String time) {
         return timetable.checkLesson(time);
-        }
+    }
 
-//     removes a lesson from student timetable
-    public void removeLesson(String time){
+    //     removes a lesson from student timetable
+    public void removeLesson(String time) {
         timetable.removeLesson(time);
 
     }
 
 
-//    RETURNS ALL LESSONS STUDENT HAS
-    public List allLessons(){
+    //    RETURNS ALL LESSONS STUDENT HAS
+    public List allLessons() {
         return timetable.allLessons();
     }
 
-//    RETURNS TOTAL NUMBER OF LESSONS
-    public int totalLessons(){
+    //    RETURNS TOTAL NUMBER OF LESSONS
+    @Override
+    public int totalLessons() {
         return timetable.totalLessons();
+    }
+// CHECK WHAT LESSON IS AT TIME;
+    @Override
+    public Subject getLesson(String time) {
+        return timetable.getLesson(time);
     }
 
 //####################################
 
 //    ########## Note Methods ##########
 
-//     ADD NOTES
-public void addNote(Subject subject, NoteSource source) {
+    //     ADD NOTES
+    public void addNote(Subject subject, NoteSource source) {
         notes.put(subject, source);
     }
 
-//    RETURNS HOW MUCH NOTES THE STUDENT HAS
-    public int totalNotes(){
+    //    RETURNS HOW MUCH NOTES THE STUDENT HAS
+    public int totalNotes() {
         return notes.size();
     }
 
     //    RETURNS HOW MUCH NOTES THERE ARE FOR A SPECIFIC SUBJECT
     public int totalNotes(Subject subject) {
         int counter = 0;
-        for(Subject subjectKey: notes.keySet()){
-            if(subject.equals(subjectKey)){
+        for (Subject subjectKey : notes.keySet()) {
+            if (subject.equals(subjectKey)) {
                 counter++;
             }
         }
         return counter;
     }
 
-//    RETURNS HOW MANY NOTES HAVE BEEN BOUGHT OR RECEIVED DURING LESSON
-public int totalNotes(NoteSource source) {
+    //    RETURNS HOW MANY NOTES HAVE BEEN BOUGHT OR RECEIVED DURING LESSON
+    public int totalNotes(NoteSource source) {
         int counter = 0;
-        for(NoteSource sourceValue: notes.values()){
-            if(source.equals(sourceValue)){
+        for (NoteSource sourceValue : notes.values()) {
+            if (source.equals(sourceValue)) {
                 counter++;
             }
         }
@@ -200,7 +211,7 @@ public int totalNotes(NoteSource source) {
 
 
     //    REMOVES NOTES FROM STUDENT
-public void removeNote(Subject subject, NoteSource source) {
+    public void removeNote(Subject subject, NoteSource source) {
         notes.remove(subject, source);
     }
 

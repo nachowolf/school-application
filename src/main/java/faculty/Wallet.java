@@ -3,11 +3,11 @@ package faculty;
 
 public class Wallet {
 
-private int tokensBalance = 0;
+private double tokensBalance = 0.00;
 
-    public boolean withdraw(int token){
+    public boolean withdraw(double token){
         if(token > 0 && this.tokensBalance >= token){
-            this.tokensBalance -= token;
+            this.tokensBalance -= Math.round(token * 100.0)/100.0;
             return true;
         }
         else{
@@ -16,9 +16,9 @@ private int tokensBalance = 0;
 
     }
 
-    public boolean deposit(int token){
+    public boolean deposit(double token){
         if(token > 0){
-            this.tokensBalance += token;
+            this.tokensBalance += Math.round(token * 100.0)/100.0;
             return true;
         }
         else{
@@ -27,8 +27,8 @@ private int tokensBalance = 0;
 
     }
 
-    public int getBalance(){
-        return this.tokensBalance;
+    public double getBalance(){
+        return Math.round(this.tokensBalance * 100.0)/100.0;
     }
 
 }

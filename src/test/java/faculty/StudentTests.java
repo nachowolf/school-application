@@ -270,33 +270,13 @@ public class StudentTests {
         assertEquals(1, spyStudent.totalNotes(Subject.English, NoteSource.Attended));
     }
 
-    @Test
-    @Order(11)
-    public void buyNotesIfRegisteredForSubjectTest(){
-        Student vendor = createStudent();
-        vendor.addNote(Subject.English, NoteSource.Attended);
-
-
-        Student student = createStudent();
-        Student spyStudent = Mockito.spy(student);
-
-        spyStudent.depositTokens(3);
-        Mockito.verify(spyStudent).depositTokens(3);
-
-        spyStudent.addSubject(Subject.English);
-        Mockito.verify(spyStudent).addSubject(Subject.English);
-
-        spyStudent.buyNotes(vendor, Subject.English);
-        Mockito.verify(spyStudent).buyNotes(vendor, Subject.English);
-    }
-
 
 //    ##########################################
 
 
     //    ##########| STUDENT TIMETABLE TESTS |##########
     @Test
-    @Order(12)
+    @Order(11)
     public void addLessonTest(){
     Student student = new Student("Jack", "Silverto", "jacksilverto@hotmail.com");
     Student spyStudent = Mockito.spy(student);
@@ -308,7 +288,7 @@ public class StudentTests {
 }
 
     @Test
-    @Order(13)
+    @Order(12)
     public void removeLessonTest(){
         Student student = new Student("Jack", "Silverto", "jacksilverto@hotmail.com");
         Student spyStudent = Mockito.spy(student);
@@ -326,5 +306,71 @@ public class StudentTests {
     }
 
 //    ###############################################
+
+//    ##########| BUY NOTES TESTS |##########
+@Test
+@Order(13)
+public void buyNotesIfRegisteredForSubjectTest(){
+    Student vendor = createStudent();
+    vendor.addNote(Subject.English, NoteSource.Attended);
+
+
+    Student student = createStudent();
+    Student spyStudent = Mockito.spy(student);
+
+    spyStudent.depositTokens(3);
+    Mockito.verify(spyStudent).depositTokens(3);
+
+    spyStudent.addSubject(Subject.English);
+    Mockito.verify(spyStudent).addSubject(Subject.English);
+
+    spyStudent.buyNotes(vendor, Subject.English);
+    Mockito.verify(spyStudent).buyNotes(vendor, Subject.English);
+
+    assertEquals(0,spyStudent.getTokenBalance());
+    assertEquals(3, vendor.getTokenBalance());
+    assertEquals(1,spyStudent.totalNotes());
+}
+
+    @Test
+    @Order(14)
+    public void buyNotesIfNotRegisteredForSubjectTest(){
+        Student vendor = createStudent();
+        vendor.addNote(Subject.English, NoteSource.Attended);
+
+
+        Student student = createStudent();
+        Student spyStudent = Mockito.spy(student);
+
+        spyStudent.depositTokens(5);
+        Mockito.verify(spyStudent).depositTokens(5);
+
+        spyStudent.buyNotes(vendor, Subject.English);
+        Mockito.verify(spyStudent).buyNotes(vendor, Subject.English);
+
+        assertEquals(0,spyStudent.getTokenBalance());
+        assertEquals(5, vendor.getTokenBalance());
+        assertEquals(1,spyStudent.totalNotes());
+    }
+
+    @Test
+    @Order(15)
+    public void buyNotesIfDontHaveEnoughTokensTest(){
+        Student vendor = createStudent();
+        vendor.addNote(Subject.English, NoteSource.Attended);
+
+        Student student = createStudent();
+        Student spyStudent = Mockito.spy(student);
+
+        spyStudent.buyNotes(vendor, Subject.English);
+        Mockito.verify(spyStudent).buyNotes(vendor, Subject.English);
+
+        assertEquals(0,spyStudent.getTokenBalance());
+        assertEquals(0, vendor.getTokenBalance());
+        assertEquals(0,spyStudent.totalNotes());
+    }
+
+
+//    #######################################
 
 }
