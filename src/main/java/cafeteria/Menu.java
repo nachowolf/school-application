@@ -1,18 +1,25 @@
 package cafeteria;
 
 public enum Menu {
-    Breakfast(4),
-    Lunch(6),
-    Snack(3),
-    Drink(2);
+    Breakfast(4, "Breakfast"),
+    Lunch(6, "Lunch"),
+    Snack(3, "Snack"),
+    Drink(2, "Drink");
 
         private final int value;
+    private final String description;
 
-       Menu(int value) {
-            this.value = value;
+    Menu(int value, String description) {
+
+           this.value = value;
+           this.description = description;
         }
     public int getPrice() {
         return value;
     }
 
+    @Override
+    public String toString() {
+        return String.format("%s costing %d tokens", description, getPrice());
+    }
 }
