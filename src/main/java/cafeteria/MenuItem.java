@@ -1,6 +1,6 @@
 package cafeteria;
 
-public enum Menu {
+public enum MenuItem {
     Breakfast(4, "Breakfast"),
     Lunch(6, "Lunch"),
     Snack(3, "Snack"),
@@ -9,13 +9,17 @@ public enum Menu {
         private final int value;
     private final String description;
 
-    Menu(int value, String description) {
+    MenuItem(int value, String description) {
 
            this.value = value;
            this.description = description;
         }
     public int getPrice() {
         return value;
+    }
+
+    public String getItem(){
+        return description;
     }
 
     @Override

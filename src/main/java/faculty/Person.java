@@ -1,5 +1,7 @@
 package faculty;
 
+import cafeteria.MenuItem;
+
 public interface Person {
 
 
@@ -13,5 +15,6 @@ public interface Person {
     boolean depositTokens(double amt);
     int totalLessons();
     Subject getLesson(String time);
+//    boolean buyFromCafeteria(MenuItem item);
 
 }

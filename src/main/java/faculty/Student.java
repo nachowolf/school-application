@@ -1,6 +1,8 @@
 package faculty;
 
 
+import cafeteria.MenuItem;
+
 import java.util.*;
 
 public class Student implements Person {
@@ -68,6 +70,11 @@ public class Student implements Person {
     public boolean depositTokens(double amt) {
         return wallet.deposit(amt);
     }
+
+//    BUY FROM RESTUARANT
+//    public boolean buyFromCafeteria(MenuItem item){
+//        return wallet.withdraw(item.getPrice());
+//    }
 
 //#################################
 
